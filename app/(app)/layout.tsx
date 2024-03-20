@@ -1,8 +1,10 @@
 'use client'
 
+import { userThreadAtom } from "@/atoms";
 import Navbar from "@/components/Navbar";
 import { UserThread } from "@prisma/client";
 import axios from "axios";
+import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 
 export default function AppLayout({
@@ -10,7 +12,8 @@ export default function AppLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const [userThread, setUserThread] = useState<UserThread | null>(null);
+    // const [userThread, setUserThread] = useState<UserThread | null>(null);
+    const [, setUserThread] = useAtom(userThreadAtom);
 
     useEffect(() => {
 
@@ -34,9 +37,8 @@ export default function AppLayout({
 
         getUserThread();
         
-    } , []);
+    } , [setUserThread]);
 
-    console.log("userThread", userThread);
 
     return (
         <div className="flex flex-col w-full h-full">
